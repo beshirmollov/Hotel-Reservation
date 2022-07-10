@@ -1,0 +1,83 @@
+﻿@using HotelReservationsManager.Data.Entities;
+@model IEnumerable<HotelReservationsManager.Data.Entities.Reservation>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Reservations</h1>
+
+<p>
+    <a type="button" class="btn btn-outline-dark" asp-action="Create">Create New</a>
+</p>
+    
+<div class="input-group mb-3">
+    <form class="d-flex" asp-action="Index" method="get">
+        <input class="rounded mr-2" type="text" name="CreatorFirstName" placeholder="First Name" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservedRoom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateSet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateSetOff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HaveBreakfast)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllInclusive)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservedRoom.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateSet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateSetOff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HaveBreakfast)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllInclusive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <a type="button" class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    <a type="button" class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <a type="button" class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

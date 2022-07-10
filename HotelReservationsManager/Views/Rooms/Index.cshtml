@@ -1,0 +1,89 @@
+﻿@model IEnumerable<HotelReservationsManager.Data.Entities.Room>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Rooms</h1>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a type="button" class="btn btn-outline-dark" asp-action="Create">Create New</a>
+    </p>
+}
+
+<div class="input-group mb-3">
+    <form class="d-flex" asp-action="Index" method="get">
+        <input class="rounded mr-2" type="text" name="RoomType" placeholder="Type" aria-label="Search">
+        <input class="rounded mr-2" type="number" name="RoomNumber" placeholder="Room Number" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InUse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdultBedPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChildBedPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomNumber)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+   <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InUse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdultBedPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChildBedPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber)
+                </td>
+
+                @if (User.IsInRole("Admin"))
+                {
+            <td>
+                <a type="button" class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a type="button" class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                @if (!item.InUse)
+                {
+                    <a type="button" class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                }
+
+            </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
